@@ -1,7 +1,7 @@
 version: '2.1'
 
 services:
-  spring-boot-template:
+  send-letter-mock:
     build:
       context: .
       args:
