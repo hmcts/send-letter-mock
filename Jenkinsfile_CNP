@@ -1,9 +1,0 @@
-#!groovy
-
-@Library("Infrastructure")
-
-def type = "java"
-def product = "send-letter"
-def component = "mock"
-
-withPipeline(type, product, component) {}
