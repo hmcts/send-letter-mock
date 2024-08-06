@@ -2,9 +2,11 @@ package uk.gov.hmcts.reform.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @SuppressWarnings("HideUtilityClassConstructor") // Spring needs a constructor, its not a utility class
+@ComponentScan(basePackages = {"uk.gov.hmcts.reform.sendletter"})
 public class Application {
 
     public static void main(final String[] args) {
