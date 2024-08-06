@@ -1,4 +1,5 @@
 package uk.gov.hmcts.reform.client.services;
+
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import java.util.UUID;
 
 import static java.util.Base64.getEncoder;
 import static java.util.stream.Collectors.toList;
+
 /**
  * Note: the order of documents you send to this service is the order in which they will print.
  */

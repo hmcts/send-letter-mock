@@ -30,7 +30,7 @@ public class MockSendController {
 
     @Autowired
     public MockSendController(BulkPrintService bulkPrintService) {
-            this.bulkPrintService = bulkPrintService;
+        this.bulkPrintService = bulkPrintService;
     }
 
     @GetMapping("/get-byte-array")

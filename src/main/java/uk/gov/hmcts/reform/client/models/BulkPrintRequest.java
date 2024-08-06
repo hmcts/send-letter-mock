@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+
 /**
  * Model that represents the information that is sent along with the letter to Bulk Print.
  */
