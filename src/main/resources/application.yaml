@@ -50,3 +50,12 @@ spring:
 azure:
   application-insights:
     instrumentation-key: ${send-letter.AppInsightsInstrumentationKey:00000000-0000-0000-0000-000000000000}
+
+send-letter:
+  url: ${SEND_LETTER_URL}
+
+idam:
+  s2s-auth:
+    url: ${AUTH_PROVIDER_SERVICE_CLIENT_BASEURL}
+    microservice: ${IDAM_S2S_AUTH_MICROSERVICE}
+    secret: ${IDAM_S2S_AUTH_TOTP_SECRET}
