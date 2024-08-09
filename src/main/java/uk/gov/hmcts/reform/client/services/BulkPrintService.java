@@ -91,7 +91,7 @@ public class BulkPrintService {
 
     /**
      * Creates the BulkPrint Request, loads the pdf to be sent from the resources folder. Then tries
-     * to send to Send Letter API.
+     * to send it to Send Letter API.
      * @return list of UUIDs
      * @throws IOException - if there is an error reading from the pdf
      */

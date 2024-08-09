@@ -56,12 +56,11 @@ right clicking the `Application` class -> More Run/Debug -> Edit Run Configurati
 ### Testing Send Letter
 
 The testing endpoint creates the letter and fills in all information. This info can be customised in the `BulkPrintService`
-class e.g. you could change the additional data sent in the request to Send Letter.There should also be two test PDFs in
-the resources folder.
+class e.g. you could change the additional data sent in the request to Send Letter. There is one PDF in the resources folder called test_pdf.pdf, more can be added if needed.
 
 Once you have the application up and running:
 
-1. Hit the testing endpoint by performing a PUT request to http://localhost:8877/test
+1. Hit the testing endpoint by performing a GET request to http://localhost:8877/test
 2. You should receive a letter ID back
 3. Check this letter ID against the Send Letter database
 
