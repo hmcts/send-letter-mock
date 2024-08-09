@@ -9,12 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import uk.gov.hmcts.reform.client.services.BulkPrintService;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -31,15 +27,13 @@ public class MockSendController {
         this.bulkPrintService = bulkPrintService;
     }
 
-    @GetMapping("/get-byte-array")
-    public ResponseEntity<byte[]> getByteArray() throws IOException {
-        ClassLoader classLoader = MockSendController.class.getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("test_pdf.pdf")).getFile());
-        return ResponseEntity.ok(Files.readAllBytes(file.toPath()));
-    }
-
     @GetMapping("/test")
     public ResponseEntity<List<UUID>> test() throws IOException {
-        return ResponseEntity.ok(bulkPrintService.tryToSend());
+        return ResponseEntity.ok(bulkPrintService.tryToSend(false));
+    }
+
+    @GetMapping("/test-international-post")
+    public ResponseEntity<List<UUID>> testInternationalPost() throws IOException {
+        return ResponseEntity.ok(bulkPrintService.tryToSend(true));
     }
 }

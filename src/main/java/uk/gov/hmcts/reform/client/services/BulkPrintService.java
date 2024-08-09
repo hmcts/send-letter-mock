@@ -42,12 +42,42 @@ public class BulkPrintService {
     private final SendLetterApi sendLetterApi;
 
     /**
+     * Creates the BulkPrint Request, loads the pdf to be sent from the resources folder. Then tries
+     * to send it to Send Letter API.
+     * @param internationalPost If the letter to be sent is an international letter.
+     * @return list of UUIDs
+     * @throws IOException - if there is an error reading from the pdf
+     */
+    public List<UUID> tryToSend(boolean internationalPost) throws IOException {
+        BulkPrintRequest bulkPrintRequest = buildBulkPrintRequest();
+
+        ClassLoader classLoader = BulkPrintService.class.getClassLoader();
+        File file = new File(Objects.requireNonNull(classLoader.getResource("test_pdf.pdf")).getFile());
+
+        List<UUID> uuidList = new ArrayList<>();
+
+        try {
+            UUID uuid = send(
+                bulkPrintRequest,
+                List.of(Files.readAllBytes(file.toPath())),
+                getAdditionalData(internationalPost)
+            );
+            uuidList.add(uuid);
+            return uuidList;
+        } catch (FeignException | IOException ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    /**
      * Gets authentication, creates a letter and sends it to Send Letter using the client service.
      * @param bulkPrintRequest - the letter data used by Send Letter API
      * @param listOfDocumentsAsByteArray - the files as a byte stream that should be printed
      * @return UUID that represents a successful call to Send Letter API
      */
-    public UUID send(final BulkPrintRequest bulkPrintRequest, final List<byte[]> listOfDocumentsAsByteArray) {
+    public UUID send(final BulkPrintRequest bulkPrintRequest, final List<byte[]> listOfDocumentsAsByteArray,
+                     Map<String, Object> additionalData) {
 
         String s2sToken = authTokenGenerator.generate();
         String caseId = bulkPrintRequest.getCaseId();
@@ -62,7 +92,7 @@ public class BulkPrintService {
             s2sToken,
             new LetterV3("a type",
                          documents,
-                         getAdditionalData()
+                         additionalData
             )
         );
 
@@ -71,65 +101,10 @@ public class BulkPrintService {
     }
 
     /**
-     * Gets the additional data for the request to Send Letter.
-     * @return a map of data
-     */
-    @SuppressWarnings({"PMD.ExcessiveParameterList"})
-    private Map<String, Object> getAdditionalData() {
-        final Map<String, Object> additionalData = new HashMap<>();
-
-        additionalData.put(CASE_IDENTIFIER_KEY, "1448915163945522589");
-        additionalData.put(CASE_REFERENCE_NUMBER_KEY, "1448915163945522588");
-        additionalData.put("letterType", "general-letter");
-        additionalData.put("isInternational", true);
-
-        additionalData.put(RECIPIENTS, Arrays.asList("Gilligan Blobbers", "Querky Mcgibbins",
-                                                     UUID.randomUUID(), UUID.randomUUID()));
-
-        return additionalData;
-    }
-
-    /**
-     * Creates the BulkPrint Request, loads the pdf to be sent from the resources folder. Then tries
-     * to send it to Send Letter API.
-     * @return list of UUIDs
-     * @throws IOException - if there is an error reading from the pdf
-     */
-    public List<UUID> tryToSend() throws IOException {
-        BulkPrintRequest bulkPrintRequest = buildBulkPrintRequest();
-
-        ClassLoader classLoader = BulkPrintService.class.getClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("test_pdf.pdf")).getFile());
-
-        List<UUID> uuidList = new ArrayList<>();
-
-        try {
-            for (int i = 0; i < 1; i++) {
-
-                UUID uuid = send(
-                    bulkPrintRequest,
-                    List.of(
-                        Files.readAllBytes(file.toPath())
-                    )
-                );
-                uuidList.add(uuid);
-            }
-            return uuidList;
-        } catch (FeignException | IOException ex) {
-            System.out.println(ex.getMessage());
-            throw ex;
-        }
-    }
-
-    private static BulkPrintRequest buildBulkPrintRequest() {
-        return getBulkPrintDocuments();
-    }
-
-    /**
      * Creates the Bulk Print document info used in the request.
      * @return BulkPrintRequest - info needed for sending a letter
      */
-    public static BulkPrintRequest getBulkPrintDocuments() {
+    public static BulkPrintRequest buildBulkPrintRequest() {
         BulkPrintDocument bulkPrintDocument = new BulkPrintDocument();
         bulkPrintDocument.setFileName("dummy.pdf");
         bulkPrintDocument.setBinaryFileUrl("dummy pdf url");
@@ -142,5 +117,23 @@ public class BulkPrintService {
         bulkPrintRequest.setCaseId("caseid");
         bulkPrintRequest.setLetterType("caselettertype");
         return bulkPrintRequest;
+    }
+
+    /**
+     * Gets the additional data for the request to Send Letter.
+     * @return a map of data
+     */
+    private Map<String, Object> getAdditionalData(boolean internationalPost) {
+        final Map<String, Object> additionalData = new HashMap<>();
+
+        additionalData.put(CASE_IDENTIFIER_KEY, "1448915163945522589");
+        additionalData.put(CASE_REFERENCE_NUMBER_KEY, "1448915163945522588");
+        additionalData.put("letterType", "general-letter");
+        additionalData.put("isInternational", internationalPost);
+
+        additionalData.put(RECIPIENTS, Arrays.asList("Gilligan Blobbers", "Querky Mcgibbins",
+                                                     UUID.randomUUID(), UUID.randomUUID()));
+
+        return additionalData;
     }
 }

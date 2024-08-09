@@ -42,7 +42,7 @@ public class BulkPrintServiceTest {
 
         when(sendLetterApi.sendLetter(any(), any(LetterV3.class))).thenReturn(sendLetterResponse);
 
-        List<UUID> actualUuid = bulkPrintService.tryToSend();
+        List<UUID> actualUuid = bulkPrintService.tryToSend(true);
 
         assertThat(actualUuid).isEqualTo(Lists.list(uuid));
     }
