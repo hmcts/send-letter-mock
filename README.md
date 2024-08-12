@@ -26,12 +26,16 @@ Several environment variables need to be set to run this application.
 | AUTH_PROVIDER_SERVICE_CLIENT_BASEURL | .env file       | Service Azure Key Vault                                                                                                              |
 | SEND_LETTER_URL                      | .env file       | `http://rpe-send-letter-service-{env}.service.core-compute-{env}.internal` replace {env} with environment you want to test e.g. demo |
 
-> ℹ️ Hint: For getting the value look at the infrastructure values in a service's (e.g. Private Law)
+> ℹ️ Hint: You should be able to grab the IDAM_S2S_AUTH_TOTP_SECRET from the s2s-{env} key vault and the IDAM_S2S_AUTH_MICROSERVICE
+> value from send-letter-service repo (currently this is send_letter_tests). You can get the AUTH_PROVIDER_SERVICE_CLIENT_BASEURL value
+> by looking at the infrastructure values in a service's (e.g. Private Law)
 > code repository for the variable's alias and then look for that alias in that service's key vault
 
 > ℹ️ Hint: The service has different values for each environment so match the variable value to
 > whatever Send Letter environment you are testing i.e. if you are testing Send Letter demo grab the
 > service's demo key vault values.
+>
+> //TODO: Update Readme once values are pulled directly by common-dev-env
 
 ### Building the application
 
