@@ -16,6 +16,10 @@ using Send Letter Client API.
 ### Installation
 - Clone the repository
 
+You can also install the project using the common-dev-env-bsbp.
+See [common-dev-env-bsbp](https://github.com/hmcts/common-dev-env-bsbp) repository for more information.
+
+
 ### Enviroment Variables and Settings
 Several environment variables need to be set to run this application.
 
