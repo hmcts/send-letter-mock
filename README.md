@@ -1,7 +1,6 @@
 # send-letter-mock
 
 ## Purpose
-
 Send Letter Mock is a locally run app for testing the various dev environments of the Send Letter Service
 using Send Letter Client API.
 
