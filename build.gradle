@@ -139,7 +139,7 @@ dependencies {
     exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
   }
 
-  testImplementation(platform('org.junit:junit-bom:5.11.3'))
+  testImplementation(platform('org.junit:junit-bom:5.13.3'))
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
     exclude group: 'junit', module: 'junit'
