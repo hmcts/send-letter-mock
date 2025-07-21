@@ -5,7 +5,7 @@ plugins {
   id 'org.springframework.boot' version '3.3.5'
   id 'com.github.ben-manes.versions' version '0.52.0'
   id 'org.sonarqube' version '5.1.0.4882'
-  id 'io.freefair.lombok' version '8.10.2'
+  id 'io.freefair.lombok' version '8.14'
   /*
     Applies analysis tools including checkstyle and OWASP Dependency checker.
     See https://github.com/hmcts/gradle-java-plugin
