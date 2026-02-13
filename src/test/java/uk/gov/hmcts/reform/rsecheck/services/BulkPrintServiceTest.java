@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
 import uk.gov.hmcts.reform.authorisation.generators.AuthTokenGenerator;
 
 import uk.gov.hmcts.reform.client.services.BulkPrintService;
@@ -34,6 +36,9 @@ public class BulkPrintServiceTest {
 
     @MockBean
     AuthTokenGenerator authTokenGenerator;
+
+    @MockBean
+    ServiceAuthorisationApi serviceAuthorisationApi;
 
     @Test
     void shouldReturnUuidAfterSendingLetter() throws IOException {
