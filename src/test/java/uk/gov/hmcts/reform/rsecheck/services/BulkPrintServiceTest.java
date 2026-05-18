@@ -4,8 +4,8 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import uk.gov.hmcts.reform.authorisation.ServiceAuthorisationApi;
@@ -31,13 +31,13 @@ public class BulkPrintServiceTest {
     @Autowired
     BulkPrintService bulkPrintService;
 
-    @MockBean
+    @MockitoBean
     SendLetterApi sendLetterApi;
 
-    @MockBean
+    @MockitoBean
     AuthTokenGenerator authTokenGenerator;
 
-    @MockBean
+    @MockitoBean
     ServiceAuthorisationApi serviceAuthorisationApi;
 
     @Test
