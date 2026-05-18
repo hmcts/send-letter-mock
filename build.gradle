@@ -107,6 +107,8 @@ repositories {
   maven {
     url =uri('https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1')
   }
+  //remove when send-letter-client spring boot 4 upgrade is published to maven central
+  maven { url 'https://jitpack.io' }
 }
 
 ext {
@@ -131,8 +133,10 @@ dependencies {
 
   implementation group: 'io.rest-assured', name: 'rest-assured',version: '6.0.0'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '5.0.1'
-
-  implementation group: 'com.github.hmcts', name: 'send-letter-client', version: '5.1.1'
+  implementation 'com.fasterxml.jackson.core:jackson-databind'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+  // update to release version when send-letter-client spring boot 4 upgrade is published to maven central
+  implementation group: 'com.github.hmcts', name: 'send-letter-client', version: 'e191f3c21b7affa67893137010ee4aa1daaf65f8'
 
   implementation group: 'com.github.hmcts', name:'service-auth-provider-java-client', version: '5.3.3', {
     exclude group: 'org.apache.logging.log4j', module: 'log4j-api'
