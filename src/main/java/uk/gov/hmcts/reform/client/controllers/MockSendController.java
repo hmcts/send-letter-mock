@@ -42,11 +42,12 @@ public class MockSendController {
         @RequestParam(value = "international", required = false, defaultValue = "false") Boolean internationalPost,
         @RequestParam(value = "service", required = false) String service,
         @RequestParam(value = "s2s-key", required = false) String secret,
+        @RequestParam(value = "withStructTreePdf", required = false, defaultValue = "false") Boolean withStructTreePdf,
         @RequestParam(value = "attrs", required = false) Map<String, String> attrs)
         throws IOException {
 
         return ResponseEntity.ok(
-            bulkPrintService.tryToSendMultiple(count, internationalPost, service, secret, attrs)
+            bulkPrintService.tryToSendMultiple(count, internationalPost, service, secret, withStructTreePdf, attrs)
         );
     }
 }

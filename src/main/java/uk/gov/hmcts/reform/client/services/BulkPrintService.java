@@ -62,6 +62,7 @@ public class BulkPrintService {
      * @param internationalPost If the letter to be sent is an international letter.
      * @param service           the service identifier
      * @param secret            the s2s secret
+     * @param withStructTreePdf          whether to send multiple pdfs in the same request or not
      * @param attrs             additional attributes to attach to the letter
      * @return list of UUIDs
      * @throws IOException - if there is an error reading from the pdf
@@ -71,20 +72,31 @@ public class BulkPrintService {
         boolean internationalPost,
         final String service,
         final String secret,
+        final boolean withStructTreePdf,
         final Map<String, String> attrs) throws IOException {
 
         BulkPrintRequest bulkPrintRequest = buildBulkPrintRequest();
 
         ClassLoader classLoader = BulkPrintService.class.getClassLoader();
         File file = new File(Objects.requireNonNull(classLoader.getResource("test_pdf.pdf")).getFile());
+        // the struct tree file has content that will break the merge if OPTMIISE_RESOURCES_MODE is not enabled
+        File structTreeFile = new File(Objects.requireNonNull(classLoader.getResource("struct_tree_pdf.pdf"))
+                                           .getFile());
 
         List<UUID> uuidList = new ArrayList<>();
 
         for (int i = 0; i < count; i++) {
             try {
+
+                List<byte []> documentsAsByteArray = new ArrayList<>();
+                if (withStructTreePdf) {
+                    documentsAsByteArray.add(Files.readAllBytes(structTreeFile.toPath()));
+                }
+                documentsAsByteArray.add(Files.readAllBytes(file.toPath()));
+
                 UUID uuid = send(
                     bulkPrintRequest,
-                    List.of(Files.readAllBytes(file.toPath())),
+                    documentsAsByteArray,
                     service,
                     secret,
                     getAdditionalData(internationalPost, attrs)
