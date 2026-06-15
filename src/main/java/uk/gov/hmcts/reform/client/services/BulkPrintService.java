@@ -62,7 +62,7 @@ public class BulkPrintService {
      * @param internationalPost If the letter to be sent is an international letter.
      * @param service           the service identifier
      * @param secret            the s2s secret
-     * @param withStructTreePdf          whether to send multiple pdfs in the same request or not
+     * @param withStructTreePdf if true, the struct tree PDF will be sent as the first of a pair of documents.
      * @param attrs             additional attributes to attach to the letter
      * @return list of UUIDs
      * @throws IOException - if there is an error reading from the pdf
