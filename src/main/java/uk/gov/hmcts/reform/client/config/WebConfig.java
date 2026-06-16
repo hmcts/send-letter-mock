@@ -1,6 +1,6 @@
 package uk.gov.hmcts.reform.client.config;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         public Map<String, String> convert(String input) {
             try {
                 return objectMapper.readValue(input, new TypeReference<Map<String, String>>() {});
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 throw new IllegalArgumentException("Failed to convert json to map", e);
             }
         }
