@@ -146,7 +146,7 @@ dependencies {
   }
 
   testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '6.0.1'
-  testImplementation(platform('org.junit:junit-bom:5.13.4'))
+  testImplementation(platform('org.junit:junit-bom:5.14.4'))
   testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
     exclude group: 'junit', module: 'junit'
