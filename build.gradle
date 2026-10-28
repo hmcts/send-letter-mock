@@ -136,7 +136,7 @@ dependencies {
   implementation group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
   implementation group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion
 
-  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '5.0.3'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '5.0.4'
 
   implementation group: 'com.github.hmcts', name: 'send-letter-client', version: '6.0.0'
 
